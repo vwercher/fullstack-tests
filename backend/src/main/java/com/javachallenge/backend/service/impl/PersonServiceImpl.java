@@ -6,7 +6,6 @@ import com.javachallenge.backend.service.PersonService;
 import com.javachallenge.backend.util.ValidateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,11 +24,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
     public Person update(Integer id, Person person) {
-        return new Person();
+        this.validateUtil.validateSavePerson(person);
+        person.setId(id);
+        return this.personRepository.save(person);
     }
 
-    public Person delete(Integer id) {
-        return new Person();
+    public Boolean delete(Integer id) {
+        this.personRepository.deleteById(id);
+        return Boolean.TRUE;
     }
 
     public Optional<Person> getById(Integer id) {
@@ -37,6 +39,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     public List<Person> getAll(String name) {
-        return new ArrayList<>();
+        if (name != null && !name.isEmpty()) {
+            return this.personRepository.findAllByNameContainingIgnoreCase(name);
+        }
+        return this.personRepository.findAll();
     }
 }

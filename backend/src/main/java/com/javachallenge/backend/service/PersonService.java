@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PersonService {
     Person save(Person person);
     Person update(Integer id, Person person);
-    Person delete(Integer id);
+    Boolean delete(Integer id);
     Optional<Person> getById(Integer id);
     List<Person> getAll(String name);
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/person", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/persons", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PersonController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class PersonController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Person> delete(@PathVariable("id") Integer id) {
+    public ResponseEntity<Boolean> delete(@PathVariable("id") Integer id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(personService.delete(id));

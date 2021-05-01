@@ -1,5 +1,5 @@
---CREATE DATABASE javachallenge;
-
+CREATE DATABASE javachallenge;
+\c javachallenge;
 CREATE TABLE persons (
     id              SERIAL          NOT NULL PRIMARY KEY,
     name            VARCHAR(80)     NOT NULL,
@@ -40,3 +40,4 @@ FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
 INSERT INTO persons (name, gender, email, birth_date, naturalness, nationality, cpf) VALUES ('Vitor Lima', 'M', 'vitor@gmail.com', '1980-01-01', 'FLORIANOPOLIS', 'BRAZILIAN','58801550057');
+INSERT INTO persons (name, gender, email, birth_date, naturalness, nationality, cpf) VALUES ('Lohana Cristina', 'F', 'lohana@gmail.com', '1980-01-01', 'FLORIANOPOLIS', 'BRAZILIAN','17179424072');

@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: javachallenge
+  datasource:
+    driverClassName: org.postgresql.Driver
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/javachallenge
+    username: postgres
+    password: 121212
+    initialization-mode: always
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.PostgreSQLDialect

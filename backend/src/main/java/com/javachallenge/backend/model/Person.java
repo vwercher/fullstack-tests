@@ -1,18 +1,46 @@
 package com.javachallenge.backend.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 
+@Entity
+@Table(name = "persons")
 public class Person implements Serializable {
 
+    @Id
+    @GeneratedValue
     private Integer id;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "gender")
     private String gender;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "birth_date", nullable = false)
     private Date birthDate;
-    private String nationality;
+
+    @Column(name = "naturalness")
     private String naturalness;
+
+    @Column(name = "nationality")
+    private String nationality;
+
+    @Column(name = "cpf", nullable = false)
     private String cpf;
+
+    @Column(name = "creation_date")
+    private Timestamp creationDate;
+
+    @Column(name = "last_update", nullable = false)
+    private Timestamp lastUpdate;
 
     public Integer getId() {
         return id;
@@ -76,5 +104,21 @@ public class Person implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Timestamp getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Timestamp getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Timestamp lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

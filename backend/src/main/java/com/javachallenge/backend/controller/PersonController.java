@@ -1,5 +1,6 @@
 package com.javachallenge.backend.controller;
 
+import com.javachallenge.backend.exception.CommonException;
 import com.javachallenge.backend.model.Person;
 import com.javachallenge.backend.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,14 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping
-    public ResponseEntity<Person> save(@RequestBody Person person) {
+    public ResponseEntity<Person> save(@RequestBody Person person) throws CommonException {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(personService.save(person));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Person> update(@PathVariable("id") Integer id, @RequestBody Person person) {
+    public ResponseEntity<Person> update(@PathVariable("id") Integer id, @RequestBody Person person) throws CommonException {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(personService.update(id, person));

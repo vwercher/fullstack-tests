@@ -1,5 +1,6 @@
 package com.javachallenge.backend.service.impl;
 
+import com.javachallenge.backend.exception.CommonException;
 import com.javachallenge.backend.model.Person;
 import com.javachallenge.backend.repository.PersonRepository;
 import com.javachallenge.backend.service.PersonService;
@@ -18,13 +19,13 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private PersonRepository personRepository;
 
-    public Person save(Person person) {
-        this.validateUtil.validateSavePerson(person);
+    public Person save(Person person) throws CommonException {
+        this.validateUtil.validatePersonData(person);
         return this.personRepository.save(person);
     }
 
-    public Person update(Integer id, Person person) {
-        this.validateUtil.validateSavePerson(person);
+    public Person update(Integer id, Person person) throws CommonException {
+        this.validateUtil.validatePersonData(person);
         person.setId(id);
         return this.personRepository.save(person);
     }

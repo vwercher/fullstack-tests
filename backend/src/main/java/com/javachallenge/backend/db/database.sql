@@ -1,18 +1,18 @@
 --CREATE DATABASE javachallenge;
 
 CREATE TABLE persons (
-	id 				SERIAL              NOT NULL PRIMARY KEY,
-	name 			VARCHAR(80) 		NOT NULL,
-	gender 			CHAR(1)   			NULL,
-	email			VARCHAR(80)			NULL,
-	birth_date		DATE 				NOT NULL,
-	naturalness 	VARCHAR(50)			NULL,
-	nationality 	VARCHAR(50)			NULL,
-	cpf				VARCHAR(11)         NULL,
-	created_at	    TIMESTAMP			NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	updated_at  	TIMESTAMP			NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	CONSTRAINT cpf_unique UNIQUE (cpf),
-	constraint gender_check check (gender in ('M','F', 'O'))
+    id              SERIAL          NOT NULL PRIMARY KEY,
+    name            VARCHAR(80)     NOT NULL,
+    gender          CHAR(1)         NULL,
+    email           VARCHAR(80)     NULL,
+    birth_date      DATE            NOT NULL,
+    naturalness     VARCHAR(50)     NULL,
+    nationality     VARCHAR(50)     NULL,
+    cpf             VARCHAR(11)     NULL,
+    created_at      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT cpf_unique UNIQUE (cpf),
+    constraint gender_check check (gender in ('M','F', 'O'))
 );
 
 COMMENT ON COLUMN persons.id IS 'Person unique ID.';
@@ -39,4 +39,4 @@ BEFORE UPDATE ON persons
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
-INSERT INTO persons (name, gender, email, birth_date, naturalness, nationality, cpf) VALUES ('Vitor Lima Wercher', 'M', 'vitorlimawercher@gmail.com', '1989-12-28', 'SANTO ANGELO', 'BRAZILIAN','02151865088');
+INSERT INTO persons (name, gender, email, birth_date, naturalness, nationality, cpf) VALUES ('Vitor Lima', 'M', 'vitor@gmail.com', '1980-01-01', 'FLORIANOPOLIS', 'BRAZILIAN','58801550057');

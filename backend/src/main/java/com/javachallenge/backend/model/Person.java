@@ -36,11 +36,11 @@ public class Person implements Serializable {
     @Column(name = "cpf", nullable = false)
     private String cpf;
 
-    @Column(name = "creation_date")
-    private Timestamp creationDate;
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
-    @Column(name = "last_update", nullable = false)
-    private Timestamp lastUpdate;
+    @Column(name = "updated_at", nullable = false)
+    private Timestamp updatedAt;
 
     public Integer getId() {
         return id;
@@ -82,20 +82,20 @@ public class Person implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
     public String getNaturalness() {
         return naturalness;
     }
 
     public void setNaturalness(String naturalness) {
         this.naturalness = naturalness;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 
     public String getCpf() {
@@ -106,19 +106,19 @@ public class Person implements Serializable {
         this.cpf = cpf;
     }
 
-    public Timestamp getCreationDate() {
-        return creationDate;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Timestamp getLastUpdate() {
-        return lastUpdate;
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setLastUpdate(Timestamp lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

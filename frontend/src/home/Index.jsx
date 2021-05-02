@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 function Home() {
     return (
         <div>
-            <h1>React - CRUD </h1>
+            <h1>React - CRUD</h1>
             
-            <p><Link to="users">Gerenciar Pessoas</Link></p>
+            <p><Link to="persons">Gerenciar Pessoas</Link></p>
         </div>
     );
 }

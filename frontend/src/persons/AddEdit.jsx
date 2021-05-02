@@ -31,7 +31,7 @@ function AddEdit({ history, match }) {
     function createUser(data) {
         return userService.create(data)
             .then(() => {
-                alertService.success('User added', { keepAfterRouteChange: true });
+                alertService.success('Cadastrado com Sucesso!', { keepAfterRouteChange: true });
                 history.push('.');
             })
             .catch(alertService.error);
@@ -40,7 +40,7 @@ function AddEdit({ history, match }) {
     function updateUser(id, data) {
         return userService.update(id, data)
             .then(() => {
-                alertService.success('User updated', { keepAfterRouteChange: true });
+                alertService.success('Atualizado com Sucesso!', { keepAfterRouteChange: true });
                 history.push('..');
             })
             .catch(alertService.error);

@@ -27,7 +27,6 @@ function update(id, params) {
     return fetchWrapper.put(`${baseUrl}/${id}`, params);
 }
 
-// prefixed with underscored because delete is a reserved word in javascript
 function _delete(id) {
     return fetchWrapper.delete(`${baseUrl}/${id}`);
 }

@@ -28,24 +28,32 @@ function List({ match }) {
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th style={{ width: '30%' }}>Name</th>
-                        <th style={{ width: '30%' }}>Sexo</th>
-                        <th style={{ width: '30%' }}>E-mail</th>
-                        <th style={{ width: '10%' }}></th>
+                        <th style={{ width: '25%' }}>Name</th>
+                        <th style={{ width: '10%' }}>Sexo</th>
+                        <th style={{ width: '10%' }}>E-mail</th>
+                        <th style={{ width: '20%' }}>Data Nascimento</th>
+                        <th style={{ width: '10%' }}>Naturalidade</th>
+                        <th style={{ width: '10%' }}>Nacionalidade</th>
+                        <th style={{ width: '10%' }}>CPF</th>
+                        <th style={{ width: '5%' }}></th>
                     </tr>
                 </thead>
                 <tbody>
                     {users && users.map(user =>
                         <tr key={user.id}>
-                            <td>{user.title} {user.firstName} {user.lastName}</td>
+                            <td>{user.name}</td>
+                            <td>{user.gender}</td>
                             <td>{user.email}</td>
-                            <td>{user.role}</td>
+                            <td>{user.birthDate}</td>
+                            <td>{user.naturalness}</td>
+                            <td>{user.nationality}</td>
+                            <td>{user.cpf}</td>                            
                             <td style={{ whiteSpace: 'nowrap' }}>
-                                <Link to={`${path}/edit/${user.id}`} className="btn btn-sm btn-primary mr-1">Editar</Link>
+                                <Link to={`${path}/edit/${user.id}`} className="btn btn-sm btn-primary mr-1">Alterar</Link>
                                 <button onClick={() => deleteUser(user.id)} className="btn btn-sm btn-danger btn-delete-user" disabled={user.isDeleting}>
                                     {user.isDeleting 
                                         ? <span className="spinner-border spinner-border-sm"></span>
-                                        : <span>Deletar</span>
+                                        : <span>Excluir</span>
                                     }
                                 </button>
                             </td>

@@ -10,29 +10,11 @@ function AddEdit({ history, match }) {
     const { id } = match.params;
     const isAddMode = !id;
     
-    // form validation rules 
-    const validationSchema = Yup.object().shape({
-        title: Yup.string()
-            .required('Title is required'),
-        firstName: Yup.string()
-            .required('First Name is required'),
-        lastName: Yup.string()
-            .required('Last Name is required'),
-        email: Yup.string()
-            .email('Email is invalid')
-            .required('Email is required'),
-        role: Yup.string()
-            .required('Role is required'),
-        password: Yup.string()
-            .transform(x => x === '' ? undefined : x)
-            .concat(isAddMode ? Yup.string().required('Password is required') : null)
-            .min(6, 'Password must be at least 6 characters'),
-        confirmPassword: Yup.string()
-            .transform(x => x === '' ? undefined : x)
-            .when('password', (password, schema) => {
-                if (password || isAddMode) return schema.required('Confirm Password is required');
-            })
-            .oneOf([Yup.ref('password')], 'Passwords must match')
+    const validationSchema = Yup.object().shape({       
+        name: Yup.string().required('Nome é obrigatório.'),
+        email: Yup.string().email('Email inválido'),
+        birthDate: Yup.string().required('Data Nascimento é obrigatório'),
+        cpf: Yup.string().min(11).max(11).required('CPF é obrigatório')
     });
 
     // functions to build form returned by useForm() hook
@@ -68,10 +50,9 @@ function AddEdit({ history, match }) {
     const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
-        if (!isAddMode) {
-            // get user and set form fields
+        if (!isAddMode) {            
             userService.getById(id).then(user => {
-                const fields = ['title', 'firstName', 'lastName', 'email', 'role'];
+                const fields = ['name', 'gender', 'sexo', 'birthDate', 'email', 'naturalness', 'nationality', 'cpf'];
                 fields.forEach(field => setValue(field, user[field]));
                 setUser(user);
             });
@@ -80,78 +61,70 @@ function AddEdit({ history, match }) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
-            <h1>{isAddMode ? 'Add User' : 'Edit User'}</h1>
-            <div className="form-row">
+            <h1>{isAddMode ? 'Cadastrar Pessoa' : 'Alterar Pessoa'}</h1>
+            <div className="form-row">                
+                <div className="form-group col-5">
+                    <label>Nome</label>
+                    <input name="name" type="text" ref={register} className={`form-control ${errors.name ? 'is-invalid' : ''}`} />
+                    <div className="invalid-feedback">{errors.name?.message}</div>
+                </div>
+
                 <div className="form-group col">
-                    <label>Title</label>
-                    <select name="title" ref={register} className={`form-control ${errors.title ? 'is-invalid' : ''}`}>
+                    <label>Sexo</label>
+                    <select name="gender" ref={register} className={`form-control ${errors.gender ? 'is-invalid' : ''}`}>
                         <option value=""></option>
-                        <option value="Mr">Mr</option>
-                        <option value="Mrs">Mrs</option>
-                        <option value="Miss">Miss</option>
-                        <option value="Ms">Ms</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Feminino</option>
+                        <option value="O">Outro</option>                        
                     </select>
-                    <div className="invalid-feedback">{errors.title?.message}</div>
+                    <div className="invalid-feedback">{errors.gender?.message}</div>
                 </div>
-                <div className="form-group col-5">
-                    <label>First Name</label>
-                    <input name="firstName" type="text" ref={register} className={`form-control ${errors.firstName ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.firstName?.message}</div>
-                </div>
-                <div className="form-group col-5">
-                    <label>Last Name</label>
-                    <input name="lastName" type="text" ref={register} className={`form-control ${errors.lastName ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.lastName?.message}</div>
-                </div>
+                
             </div>
             <div className="form-row">
+                <div className="form-group col-5">
+                    <label>Data Nascimento</label>
+                    <input name="birthDate" type="date" ref={register} className={`form-control ${errors.birthDate ? 'is-invalid' : ''}`} />
+                    <div className="invalid-feedback">{errors.birthDate?.message}</div>
+                </div>
+                
                 <div className="form-group col-7">
                     <label>Email</label>
                     <input name="email" type="text" ref={register} className={`form-control ${errors.email ? 'is-invalid' : ''}`} />
                     <div className="invalid-feedback">{errors.email?.message}</div>
                 </div>
+
                 <div className="form-group col">
-                    <label>Role</label>
-                    <select name="role" ref={register} className={`form-control ${errors.role ? 'is-invalid' : ''}`}>
+                    <label>Naturalidade</label>
+                    <select name="naturalness" ref={register} className={`form-control ${errors.naturalness ? 'is-invalid' : ''}`}>
                         <option value=""></option>
-                        <option value="User">User</option>
-                        <option value="Admin">Admin</option>
+                        <option value="Biguaçu/SC">Biguaçu/SC</option>
+                        <option value="Florianópolis/SC">Florianópolis/SC</option>
+                        <option value="Palhoça/SC">Palhoça/SC</option>
+                        <option value="São José/SC">São José/SC</option>                        
                     </select>
-                    <div className="invalid-feedback">{errors.role?.message}</div>
-                </div>
-            </div>
-            {!isAddMode &&
-                <div>
-                    <h3 className="pt-3">Change Password</h3>
-                    <p>Leave blank to keep the same password</p>
-                </div>
-            }
-            <div className="form-row">
-                <div className="form-group col">
-                    <label>
-                        Password
-                        {!isAddMode &&
-                            (!showPassword
-                                ? <span> - <a onClick={() => setShowPassword(!showPassword)} className="text-primary">Show</a></span>
-                                : <em> - {user.password}</em>
-                            )
-                        }
-                    </label>
-                    <input name="password" type="password" ref={register} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.password?.message}</div>
+                    <div className="invalid-feedback">{errors.naturalness?.message}</div>
                 </div>
                 <div className="form-group col">
-                    <label>Confirm Password</label>
-                    <input name="confirmPassword" type="password" ref={register} className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
+                    <label>Nacionalidade</label>
+                    <select name="nationality" ref={register} className={`form-control ${errors.nationality ? 'is-invalid' : ''}`}>
+                        <option value=""></option>                        
+                        <option value="Brasileira">Brasileiro</option>                                                
+                    </select>
+                    <div className="invalid-feedback">{errors.nationality?.message}</div>
                 </div>
-            </div>
+                <div className="form-group col-7">
+                    <label>CPF</label>
+                    <input name="cpf" type="number" ref={register} className={`form-control ${errors.cpf ? 'is-invalid' : ''}`} />
+                    <div className="invalid-feedback">{errors.cpf?.message}</div>
+                </div>
+            </div>                        
             <div className="form-group">
                 <button type="submit" disabled={formState.isSubmitting} className="btn btn-primary">
                     {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                    Save
+                    Salvar
                 </button>
-                <Link to={isAddMode ? '.' : '..'} className="btn btn-link">Cancel</Link>
+                <Link to={isAddMode ? '.' : '..'} className="btn btn-link">Cancelar</Link>
             </div>
         </form>
     );

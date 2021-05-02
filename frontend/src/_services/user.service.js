@@ -11,15 +11,11 @@ export const userService = {
     delete: _delete
 };
 
-function getAll() {
-    console.log(baseUrl);
-    return fetchWrapper.get(baseUrl, {
-        credentials: "include"
-    });
+function getAll() {    
+    return fetchWrapper.get(baseUrl);
 }
 
-function getById(id) {
-    console.log(baseUrl);
+function getById(id) {    
     return fetchWrapper.get(`${baseUrl}/${id}`);    
 }
 

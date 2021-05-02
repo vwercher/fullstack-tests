@@ -46,8 +46,7 @@ function AddEdit({ history, match }) {
             .catch(alertService.error);
     }
 
-    const [user, setUser] = useState({});
-    const [showPassword, setShowPassword] = useState(false);
+    const [user, setUser] = useState({});    
 
     useEffect(() => {
         if (!isAddMode) {            

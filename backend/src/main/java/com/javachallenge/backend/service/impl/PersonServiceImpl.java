@@ -1,5 +1,6 @@
 package com.javachallenge.backend.service.impl;
 
+import com.javachallenge.backend.adapter.GenderAdapter;
 import com.javachallenge.backend.exception.CommonException;
 import com.javachallenge.backend.model.Person;
 import com.javachallenge.backend.repository.PersonRepository;
@@ -18,6 +19,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private GenderAdapter genderAdapter;
 
     public Person save(Person person) throws CommonException {
         this.validateUtil.validatePersonData(person);
@@ -40,9 +44,13 @@ public class PersonServiceImpl implements PersonService {
     }
 
     public List<Person> getAll(String name) {
+        List<Person> persons;
         if (name != null && !name.isEmpty()) {
-            return this.personRepository.findAllByNameContainingIgnoreCase(name);
+            persons = this.personRepository.findAllByNameContainingIgnoreCase(name);
+        } else {
+            persons = this.personRepository.findAll();
         }
-        return this.personRepository.findAll();
+        this.genderAdapter.convertGenderIdentifierToDescription(persons);
+        return persons;
     }
 }

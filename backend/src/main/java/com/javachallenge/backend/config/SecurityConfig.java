@@ -16,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
+        /*httpSecurity
                 .authorizeRequests()
                 .antMatchers("/source")
                 .permitAll()
@@ -25,8 +25,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+                .httpBasic();*/
 
+        httpSecurity
+                .csrf()
+                .disable()
+                .authorizeRequests()
+                .antMatchers("/source").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
     }
 
     @Autowired
@@ -34,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         auth.inMemoryAuthentication()
                 .withUser("vitor")
                 .password(passwordEncoder().encode("121212"))
-                .authorities("ADMIN");
+                .authorities("ROLE_USER");
     }
 
     @Bean

@@ -6,6 +6,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -19,10 +20,20 @@ public class CorsFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) resp;
-        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Origin", authenticationProperty.getSecurity().getOrigemPermitida());
         response.setHeader("Access-Control-Allow-Methods", "*");
         response.setHeader("Access-Control-Allow-Headers", "*");
         response.setHeader("Access-Control-Max-Age", "86400");
-        chain.doFilter(req, resp);
+
+        HttpServletRequest request = (HttpServletRequest) req;
+        if("OPTIONS".equals(request.getMethod()) && authenticationProperty.getSecurity().getOrigemPermitida().equals(request.getHeader("Origin"))) {
+            response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
+            response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
+            response.setHeader("Access-Control-Max-Age", "3600");
+
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            chain.doFilter(req, resp);
+        }
     }
 }

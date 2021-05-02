@@ -21,3 +21,7 @@ spring:
     hibernate:
       ddl-auto: none
       dialect: org.hibernate.dialect.PostgreSQLDialect
+authentication:
+  security:
+    origem-permitida: http://localhost:3000
+    enable-https: false

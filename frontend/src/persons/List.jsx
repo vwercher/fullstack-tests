@@ -68,7 +68,7 @@ function List({ match }) {
                     }
                     {users && !users.length &&
                         <tr>
-                            <td colSpan="4" className="text-center">
+                            <td colSpan="8" className="text-center">
                                 <div className="p-2">Nenhuma Pessoa para Exibir</div>
                             </td>
                         </tr>

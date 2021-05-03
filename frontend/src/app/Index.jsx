@@ -13,7 +13,8 @@ function App() {
             <Nav />
             <Alert />
             <div className="container pt-4 pb-4">
-                <Router>                    
+                <Router>
+                    <Redirect from="/" to="/login"/>
                     <Route path="/login" component={LoginPage} />
                     <PrivateRoute path="/persons" component={Persons} />                    
                 </Router>

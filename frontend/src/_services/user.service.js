@@ -8,7 +8,9 @@ export const userService = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    login,
+    logout
 };
 
 function getAll() {    
@@ -29,4 +31,12 @@ function update(id, params) {
 
 function _delete(id) {
     return fetchWrapper.delete(`${baseUrl}/${id}`);
+}
+
+function login(username, password) {
+    return fetchWrapper.login(config.apiUrl, username, password);
+}
+
+function logout() {
+    return fetchWrapper.logout();
 }

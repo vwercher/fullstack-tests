@@ -22,15 +22,15 @@ export function configureFakeBackend() {
             function handleRoute() {
                 const { method } = opts;
                 switch (true) {
-                    case url.endsWith('/users') && method === 'GET':
+                    case url.endsWith('/persons') && method === 'GET':
                         return getUsers();
-                    case url.match(/\/users\/\d+$/) && method === 'GET':
+                    case url.match(/\/persons\/\d+$/) && method === 'GET':
                         return getUserById();
-                    case url.endsWith('/users') && method === 'POST':
+                    case url.endsWith('/persons') && method === 'POST':
                         return createUser();
-                    case url.match(/\/users\/\d+$/) && method === 'PUT':
+                    case url.match(/\/persons\/\d+$/) && method === 'PUT':
                         return updateUser();
-                    case url.match(/\/users\/\d+$/) && method === 'DELETE':
+                    case url.match(/\/persons\/\d+$/) && method === 'DELETE':
                         return deleteUser();
                     default:
                         // pass through any requests not handled above

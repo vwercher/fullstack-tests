@@ -23,7 +23,7 @@ function List({ match }) {
 
     return (
         <div>
-            <h1>Pessoas</h1>
+            <h1>Cadastro de Pessoas</h1>
             <Link to={`${path}/add`} className="btn btn-sm btn-success mb-2">Adicionar</Link>
             <table className="table table-striped">
                 <thead>
@@ -75,6 +75,9 @@ function List({ match }) {
                     }
                 </tbody>
             </table>
+            <p>
+                    <Link to="/login" className="btn btn-sm btn-warning">Logout</Link>
+                </p>
         </div>
     );
 }

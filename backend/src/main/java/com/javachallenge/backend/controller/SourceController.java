@@ -14,7 +14,7 @@ public class SourceController {
     @Autowired
     private SourceService sourceService;
 
-    @GetMapping
+    @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> getSource() {
         return ResponseEntity
                 .status(HttpStatus.OK)

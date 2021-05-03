@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 public class SourceServiceImpl implements SourceService {
 
     public String getSource() {
-        return "https://github.com/vwercher/java-challenge";
+        return "<html>" +
+                "   <h3>" +
+                "       <a href=\"https://github.com/vwercher/java-challenge\">https://github.com/vwercher/java-challenge" +
+                "   </h3>" +
+                "</html>";
     }
 }
